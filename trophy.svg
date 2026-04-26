@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a2431"/>
+      <stop offset="100%" stop-color="#101721"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffe28a"/>
+      <stop offset="55%" stop-color="#ffbc2f"/>
+      <stop offset="100%" stop-color="#c97709"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="72" fill="url(#bg)"/>
+  <circle cx="256" cy="190" r="150" fill="#0f1620"/>
+  <path d="M164 114h184v52c0 72-40 136-92 166-52-30-92-94-92-166v-52Z" fill="url(#gold)"/>
+  <path d="M160 134h-34c-18 0-32 14-32 32 0 57 46 103 103 103h12" fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"/>
+  <path d="M352 134h34c18 0 32 14 32 32 0 57-46 103-103 103h-12" fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"/>
+  <rect x="228" y="282" width="56" height="82" rx="20" fill="url(#gold)"/>
+  <path d="M182 364h148v34c0 11-9 20-20 20H202c-11 0-20-9-20-20v-34Z" fill="url(#gold)"/>
+  <path d="M146 422h220v24c0 14-10 26-24 26H170c-14 0-24-12-24-26v-24Z" fill="url(#gold)"/>
+  <path d="m256 158 20 40 44 6-32 30 8 44-40-20-40 20 8-44-32-30 44-6 20-40Z" fill="#fff2b7"/>
+</svg>
