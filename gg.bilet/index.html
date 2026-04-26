@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GG Bilet Case Battle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-glow background-glow-left"></div>
+  <div class="background-glow background-glow-right"></div>
+  <div class="background-mesh"></div>
+
+  <main class="app-shell">
+    <section class="content-panel">
+      <div class="ban-overlay hidden" id="ban-overlay">
+        <div class="ban-overlay-inner">
+          <span class="ban-label">BAN</span>
+          <p class="ban-text">Этот аккаунт заблокирован админом. Доступ к кейсам, апгрейду и действиям на сайте закрыт.</p>
+        </div>
+      </div>
+
+      <header class="brand-bar">
+        <div class="brand-lockup">
+          <div class="brand-icon">CX</div>
+          <div>
+            <p class="eyebrow">CODEX EDITION</p>
+            <h1>Case Battle на билеты</h1>
+          </div>
+        </div>
+        <button class="ghost-button hidden" id="admin-button" type="button">Admin Console</button>
+      </header>
+
+      <section class="auth-card" id="auth-screen">
+        <div class="auth-head">
+          <div>
+            <p class="eyebrow">ДОСТУП</p>
+            <h2 id="panel-title">Вход и регистрация</h2>
+          </div>
+          <p class="auth-note">Аккаунт хранится в браузере, а пароль проверяется перед входом.</p>
+        </div>
+
+        <div class="auth-switcher">
+          <button class="switch-button active" id="tab-login" type="button">Вход</button>
+          <button class="switch-button" id="tab-register" type="button">Регистрация</button>
+        </div>
+
+        <form class="auth-form" id="auth-form">
+          <label>
+            <span>Логин</span>
+            <input id="username" name="username" type="text" autocomplete="username" minlength="3" maxlength="16" required>
+          </label>
+
+          <label>
+            <span>Пароль</span>
+            <input id="password" name="password" type="password" autocomplete="current-password" minlength="6" maxlength="32" required>
+          </label>
+
+          <label class="hidden" id="confirm-group">
+            <span>Повтори пароль</span>
+            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="6" maxlength="32">
+          </label>
+
+          <button class="primary-button" id="auth-submit" type="submit">Войти</button>
+          <p class="status-text" id="auth-status">Создай аккаунт или войди в уже существующий.</p>
+        </form>
+      </section>
+
+      <section class="game-screen hidden" id="game-screen">
+        <section class="admin-panel hidden" id="admin-panel">
+          <div class="admin-panel-head">
+            <div>
+              <p class="eyebrow">УПРАВЛЕНИЕ</p>
+              <h3>Консоль сайта</h3>
+            </div>
+            <button class="ghost-button" id="admin-close-button" type="button">Скрыть</button>
+          </div>
+          <p class="admin-note">Здесь видны только аккаунты из этого браузера. Админ-команды работают и для кейсов, и для режима апгрейда.</p>
+          <div class="admin-accounts" id="admin-accounts"></div>
+        </section>
+
+        <section class="profile-strip">
+          <div class="profile-card">
+            <div class="avatar-stack">
+              <div class="avatar-frame">
+                <img id="avatar-preview" alt="Аватар профиля">
+              </div>
+              <label class="avatar-upload" for="avatar-input">Вставить свое фото</label>
+              <input class="hidden" id="avatar-input" type="file" accept="image/*">
+            </div>
+
+            <div class="profile-copy">
+              <p class="eyebrow">ПРОФИЛЬ</p>
+              <h2 id="welcome-name">Привет!</h2>
+              <p id="profile-note">Выбери кейс на весь экран и крути красивую рулетку.</p>
+              <div class="profile-actions">
+                <button class="ghost-button profile-nav-button active" id="cases-nav-button" type="button">Кейсы</button>
+                <button class="ghost-button profile-nav-button" id="upgrader-nav-button" type="button">Апгрейд</button>
+                <button class="ghost-button hidden" id="messages-button" type="button">Сообщения</button>
+                <button class="ghost-button profile-logout" id="logout-button" type="button">Выйти из аккаунта</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="wallet-row">
+            <article class="wallet-card">
+              <span>Билеты всего</span>
+              <strong id="ticket-balance">0</strong>
+            </article>
+            <article class="wallet-card accent">
+              <span>Лучший дроп</span>
+              <strong id="best-round">0</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="trade-zone">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">TRADE</p>
+              <h3>Вывод и trade ссылка</h3>
+            </div>
+            <p class="small-info" id="trade-status">Сохрани trade ссылку и отправь заявку на вывод билетов.</p>
+          </div>
+
+          <div class="trade-layout">
+            <label class="trade-field">
+              <span>Trade ссылка</span>
+              <input id="trade-link-input" type="url" placeholder="https://steamcommunity.com/tradeoffer/new/?partner=...">
+            </label>
+
+            <div class="trade-actions">
+              <button class="ghost-button" id="save-trade-link-button" type="button">Сохранить ссылку</button>
+            </div>
+
+            <div class="withdraw-row">
+              <label class="trade-field withdraw-field">
+                <span>Сколько вывести</span>
+                <input id="withdraw-amount-input" type="number" min="1" step="1" placeholder="100">
+              </label>
+              <button class="primary-button withdraw-button" id="withdraw-button" type="button">Вывести</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="messages-panel hidden" id="messages-panel">
+          <div class="admin-panel-head">
+            <div>
+              <p class="eyebrow">СООБЩЕНИЯ</p>
+              <h3>Заявки на вывод</h3>
+            </div>
+            <button class="ghost-button" id="messages-close-button" type="button">Скрыть</button>
+          </div>
+          <p class="admin-note">Здесь сохраняются заявки: кто хочет вывести, сколько, когда и по какой trade ссылке.</p>
+          <div class="messages-list" id="messages-list"></div>
+        </section>
+
+        <section class="cases-zone" id="cases-zone">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">ВИТРИНА</p>
+              <h3>Выбери кейс</h3>
+            </div>
+            <p class="small-info" id="selection-count">Не выбран</p>
+          </div>
+
+          <div class="case-grid" id="case-grid"></div>
+        </section>
+
+        <section class="battle-zone" id="battle-zone">
+          <div class="battle-top">
+            <div>
+              <p class="eyebrow">ПРОКРУТ</p>
+              <h3>Открытие одного кейса</h3>
+            </div>
+            <button class="primary-button spin-button" id="spin-button" type="button" disabled>Открыть кейс</button>
+          </div>
+
+          <div class="selected-case-banner">
+            <div class="selected-case-thumb-wrap">
+              <img class="selected-case-thumb" id="selected-case-thumb" alt="">
+            </div>
+            <div class="selected-case-copy">
+              <span>Сейчас выбран</span>
+              <strong id="selected-case-name">Сначала выбери кейс</strong>
+            </div>
+            <div class="selected-case-price" id="selected-case-price">0 билетов</div>
+          </div>
+
+          <div class="reel-window">
+            <div class="reel-track" id="reel-track"></div>
+            <div class="reel-marker"></div>
+          </div>
+
+          <div class="drop-layout">
+            <aside class="drop-sidecard">
+              <p class="eyebrow">ДРОП</p>
+              <div class="drop-preview-card">
+                <img id="drop-preview-image" alt="">
+              </div>
+              <strong id="drop-preview-value">?</strong>
+              <p id="drop-preview-name">Ждёт открытия</p>
+            </aside>
+
+            <div class="result-bar">
+              <div>
+                <span>Последний выигрыш</span>
+                <strong id="round-total">0 билетов</strong>
+              </div>
+              <p id="round-message">Выбери кейс из витрины и запускай открытие.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="upgrader-zone hidden" id="upgrader-zone">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">UPGRADE</p>
+              <h3>Колесо апгрейда</h3>
+            </div>
+            <p class="small-info" id="upgrader-status">Ставка от 25 билетов, максимум до x10.</p>
+          </div>
+
+          <div class="upgrader-layout">
+            <aside class="upgrade-panel">
+              <p class="eyebrow">СТАВКА</p>
+              <p class="upgrade-panel-title">Что идет в апгрейд</p>
+              <p class="upgrade-panel-copy">Ставь билеты и крути колесо. Чем выше цель, тем больше занос, но риск тоже жестче.</p>
+
+              <div class="upgrade-model-card source">
+                <div class="upgrade-model-aura"></div>
+                <img class="upgrade-model-image" id="upgrade-source-image" alt="">
+                <div class="upgrade-model-meta">
+                  <strong id="upgrade-source-name">Ставка готова</strong>
+                  <span id="upgrade-source-value">25 билетов</span>
+                </div>
+              </div>
+
+              <label class="upgrade-field" for="upgrade-bet-range">
+                <span>Сумма ставки</span>
+                <input id="upgrade-bet-range" type="range" min="25" max="25" step="5" value="25">
+              </label>
+
+              <div class="upgrade-input-row">
+                <input id="upgrade-bet-input" type="number" min="25" step="5" value="25">
+                <span>билетов</span>
+              </div>
+            </aside>
+
+            <div class="upgrade-core">
+              <div class="upgrade-wheel-shell">
+                <div class="upgrade-wheel-disc" id="upgrade-wheel-disc">
+                  <div class="upgrade-wheel-face" id="upgrade-wheel-face"></div>
+                  <div class="upgrade-wheel-ticks"></div>
+                </div>
+                <div class="upgrade-wheel-center">
+                  <span id="upgrade-chance">50.00%</span>
+                  <strong id="upgrade-target-label">x2</strong>
+                  <p id="upgrade-chance-copy">Золотая середина. Шанс и выплата сбалансированы.</p>
+                </div>
+                <div class="upgrade-wheel-pointer"></div>
+              </div>
+
+              <div class="upgrade-multiplier-row" id="upgrade-multipliers">
+                <button class="upgrade-multiplier" data-upgrade-multiplier="1.5" type="button">x1.5</button>
+                <button class="upgrade-multiplier active" data-upgrade-multiplier="2" type="button">x2</button>
+                <button class="upgrade-multiplier" data-upgrade-multiplier="3" type="button">x3</button>
+                <button class="upgrade-multiplier" data-upgrade-multiplier="5" type="button">x5</button>
+                <button class="upgrade-multiplier" data-upgrade-multiplier="7" type="button">x7</button>
+                <button class="upgrade-multiplier" data-upgrade-multiplier="10" type="button">x10</button>
+              </div>
+
+              <button class="primary-button upgrade-button" id="upgrade-button" type="button">Прокачать</button>
+            </div>
+
+            <aside class="upgrade-panel upgrade-panel-target">
+              <p class="eyebrow">ЦЕЛЬ</p>
+              <p class="upgrade-panel-title">Что можешь занести</p>
+              <p class="upgrade-panel-copy">При удачной остановке получаешь всю целевую выплату. При провале ставка сгорает.</p>
+
+              <div class="upgrade-model-card target">
+                <div class="upgrade-model-aura"></div>
+                <img class="upgrade-model-image" id="upgrade-target-image" alt="">
+                <div class="upgrade-model-meta">
+                  <strong id="upgrade-target-name">Royal Upgrade</strong>
+                  <span id="upgrade-target-value">50 билетов</span>
+                </div>
+              </div>
+
+              <div class="upgrade-stats">
+                <article class="upgrade-stat-box">
+                  <span>Выплата</span>
+                  <strong id="upgrade-payout-value">50</strong>
+                </article>
+                <article class="upgrade-stat-box">
+                  <span>Последний апгрейд</span>
+                  <strong id="upgrade-last-result">Ждёт запуска</strong>
+                </article>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <template id="case-card-template">
+    <button class="case-card" type="button">
+      <div class="case-card-art">
+        <img class="case-image" alt="">
+      </div>
+      <div class="case-overlay"></div>
+      <div class="case-card-meta">
+        <div>
+          <p class="case-name"></p>
+          <p class="case-subtitle"></p>
+          <div class="case-tags">
+            <span class="case-tag case-profit-tag"></span>
+            <span class="case-tag case-range-tag"></span>
+          </div>
+        </div>
+        <span class="case-price"></span>
+      </div>
+    </button>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
